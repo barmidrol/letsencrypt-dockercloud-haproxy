@@ -16,7 +16,7 @@ fi
 # the server is listening and you won't be able to authenticate
 echo "Creating http server port 80"
 mkdir -p /opt/www
-(pushd /opt/www && python -m SimpleHTTPServer 80) &
+(pushd /opt/www && python3 -m http.server 80) &
 
 # Wait for the local server to be listening
 while ! nc -z localhost 80;
@@ -35,6 +35,6 @@ do
 done
 
 echo "Loadbalancer service \"${LOAD_BALANCER_SERVICE_NAME}\" is online, updating certificates..."
-(update-certs.sh) &
+(update-certs) &
 
 exec "$@"
